@@ -2,7 +2,15 @@ from unittest.mock import Mock
 
 import pytest
 
+from pokedata import cache
 from pokedata.fetch_api import fetch_all_pokemon, fetch_pokemon_detail, fetch_pokemon_list
+
+
+@pytest.fixture(autouse=True)
+def isolated_cache(tmp_path, monkeypatch):
+    # Cada teste usa seu proprio .pokecache/ temporario, senao um teste
+    # gravaria no cache real e o proximo pegaria o resultado errado dali.
+    monkeypatch.setattr(cache, "CACHE_DIR", tmp_path / ".pokecache")
 
 
 def fake_response(json_data, ok=True):
