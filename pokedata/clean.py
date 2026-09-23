@@ -1,8 +1,6 @@
-"""Transforma o JSON bruto da PokeAPI num registro plano, pronto pra virar
-uma linha de tabela. A PokeAPI devolve altura em decimetros e peso em
-hectogramas (detalhe documentado da API, facil de passar batido); aqui ja
-converte pra metros e quilos, que e' o que faz sentido pra analise.
-"""
+"""JSON bruto da PokeAPI -> registro plano. A API manda altura em decimetros
+e peso em hectogramas (facil de passar batido); aqui ja converte pra metros
+e quilos."""
 
 STATS_MAP = {
     "hp": "hp",

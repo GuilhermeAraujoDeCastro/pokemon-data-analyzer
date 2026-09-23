@@ -1,8 +1,11 @@
 from pokedata.charts import (
+    charts_up_to_date,
     plot_average_speed_by_type,
+    plot_correlation_heatmap,
     plot_top_n_by_stat,
     plot_type_distribution,
     plot_weight_vs_defense,
+    write_charts_marker,
 )
 from pokedata.dataset import build_dataframe
 
@@ -55,3 +58,58 @@ def test_plot_top_n_by_stat_creates_file(tmp_path):
     plot_top_n_by_stat(make_df(), "attack", output, n=2)
     assert output.exists()
     assert output.stat().st_size > 0
+
+
+def test_plots_also_create_svg_version(tmp_path):
+    output = tmp_path / "distribuicao.png"
+    plot_type_distribution(make_df(), output)
+
+    svg = output.with_suffix(".svg")
+    assert svg.exists()
+    assert svg.stat().st_size > 0
+
+
+def test_plot_type_distribution_compare_mode(tmp_path):
+    output = tmp_path / "distribuicao.png"
+    other_df = make_df()
+
+    plot_type_distribution(make_df(), output, compare_df=other_df, labels=("Kanto", "Johto"))
+
+    assert output.exists()
+
+
+def test_plot_weight_vs_defense_compare_mode(tmp_path):
+    output = tmp_path / "peso_defesa.png"
+    other_df = make_df()
+
+    plot_weight_vs_defense(make_df(), output, compare_df=other_df, labels=("Kanto", "Johto"))
+
+    assert output.exists()
+
+
+def test_plot_correlation_heatmap_creates_file(tmp_path):
+    output = tmp_path / "correlacao.png"
+    plot_correlation_heatmap(make_df(), output)
+    assert output.exists()
+    assert output.stat().st_size > 0
+
+
+def test_charts_up_to_date_false_when_no_marker(tmp_path):
+    assert charts_up_to_date(make_df(), tmp_path) is False
+
+
+def test_charts_up_to_date_true_after_writing_marker(tmp_path):
+    df = make_df()
+    write_charts_marker(df, tmp_path)
+
+    assert charts_up_to_date(df, tmp_path) is True
+
+
+def test_charts_up_to_date_false_when_data_changes(tmp_path):
+    df = make_df()
+    write_charts_marker(df, tmp_path)
+
+    changed = df.copy()
+    changed.loc[0, "speed"] = 999
+
+    assert charts_up_to_date(changed, tmp_path) is False

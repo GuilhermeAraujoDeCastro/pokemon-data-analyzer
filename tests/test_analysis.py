@@ -1,12 +1,18 @@
 from pokedata.analysis import (
     average_stat_by_type,
+    correlation_matrix,
     fastest_type,
+    find_outliers,
+    height_hp_correlation,
+    most_common_type_by_generation,
     rarest_type_combination,
+    stat_total_distribution_by_generation,
     top_n_by_stat,
     type_combination_counts,
     weight_defense_correlation,
 )
 from pokedata.dataset import build_dataframe
+from pokedata.generations import add_generation_column
 
 
 def make_df(records):
@@ -121,3 +127,83 @@ def test_top_n_by_stat_returns_correct_count_and_order():
 
     assert list(top2["name"]) == ["rapido", "medio"]
     assert len(top2) == 2
+
+
+def test_weight_defense_correlation_is_nan_without_warning_when_constant(recwarn):
+    # peso constante -> desvio padrao 0 -> correlacao NaN (matematicamente
+    # correto), sem soltar RuntimeWarning do numpy no meio do relatorio.
+    df = make_df([
+        mon("a", "rock", weight_kg=10, defense=20),
+        mon("b", "rock", weight_kg=10, defense=40),
+    ])
+    import math
+    result = weight_defense_correlation(df)
+
+    assert math.isnan(result)
+    assert len(recwarn) == 0
+
+
+def test_height_hp_correlation_perfect_positive():
+    df = make_df([
+        mon("a", "rock", height_m=1, hp=10),
+        mon("b", "rock", height_m=2, hp=20),
+        mon("c", "rock", height_m=3, hp=30),
+    ])
+    assert height_hp_correlation(df) == 1.0
+
+
+def make_gen_df():
+    df = make_df([
+        mon("bulbasaur", "grass", speed=45),
+        mon("ivysaur", "grass", speed=60),
+        mon("charmander", "fire", speed=65),
+        mon("chikorita", "grass", speed=32),
+    ])
+    df.loc[0, "id"] = 1    # geracao 1
+    df.loc[1, "id"] = 2    # geracao 1
+    df.loc[2, "id"] = 4    # geracao 1
+    df.loc[3, "id"] = 152  # geracao 2
+    return add_generation_column(df)
+
+
+def test_most_common_type_by_generation():
+    result = most_common_type_by_generation(make_gen_df())
+
+    assert result[1] == "grass"  # 2 grass x 1 fire na geracao 1
+    assert result[2] == "grass"
+
+
+def test_stat_total_distribution_by_generation_has_one_row_per_generation():
+    result = stat_total_distribution_by_generation(make_gen_df())
+
+    assert set(result.index) == {1, 2}
+    assert result.loc[1, "count"] == 3
+    assert result.loc[2, "count"] == 1
+
+
+def test_correlation_matrix_is_symmetric_with_ones_on_diagonal():
+    # todas as stats variam entre as linhas -- uma coluna constante teria
+    # desvio padrao 0 e a correlacao dela viraria NaN (matematicamente
+    # correto, mas atrapalharia esse teste especifico).
+    df = make_df([
+        mon("a", "rock", hp=10, attack=20, defense=30, special_attack=1, special_defense=2, speed=5, height_m=1, weight_kg=10),
+        mon("b", "rock", hp=20, attack=40, defense=60, special_attack=2, special_defense=4, speed=15, height_m=2, weight_kg=20),
+        mon("c", "rock", hp=30, attack=60, defense=90, special_attack=3, special_defense=6, speed=25, height_m=3, weight_kg=30),
+    ])
+    matrix = correlation_matrix(df)
+
+    assert (matrix.values.diagonal() == 1.0).all()
+    assert matrix.loc["hp", "attack"] == matrix.loc["attack", "hp"]
+
+
+def test_find_outliers_flags_value_far_from_the_rest():
+    df = make_df([
+        mon("comum1", "normal", hp=50),
+        mon("comum2", "normal", hp=52),
+        mon("comum3", "normal", hp=48),
+        mon("comum4", "normal", hp=51),
+        mon("extremo", "normal", hp=500),
+    ])
+    outliers = find_outliers(df, "hp")
+
+    assert list(outliers["name"]) == ["extremo"]
