@@ -1,0 +1,14 @@
+{
+  "name": "extrator-pokemon-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dashboard estatico do Extrator e Analisador de Dados Pokemon, com build empacotado com esbuild e ofuscado com javascript-obfuscator para o deploy na Vercel.",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "javascript-obfuscator": "^4.1.1"
+  }
+}

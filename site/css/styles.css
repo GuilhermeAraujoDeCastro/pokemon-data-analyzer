@@ -1,0 +1,178 @@
+:root {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --text: #1a1d23;
+  --muted: #5b6472;
+  --border: #e1e5ee;
+  --accent: #3f7bc9;
+  --accent-2: #d98c1f;
+  --danger: #c9463f;
+  --success: #3f9142;
+  --shadow: 0 1px 3px rgba(20, 25, 35, .08);
+}
+
+:root[data-theme="dark"] {
+  --bg: #12151b;
+  --surface: #1b1f28;
+  --text: #eef1f6;
+  --muted: #9aa4b5;
+  --border: #2b313d;
+  --accent: #6ea8e7;
+  --accent-2: #f0b65a;
+  --danger: #e57d77;
+  --success: #7cc47f;
+  --shadow: 0 1px 3px rgba(0, 0, 0, .4);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12151b;
+    --surface: #1b1f28;
+    --text: #eef1f6;
+    --muted: #9aa4b5;
+    --border: #2b313d;
+    --accent: #6ea8e7;
+    --accent-2: #f0b65a;
+    --danger: #e57d77;
+    --success: #7cc47f;
+    --shadow: 0 1px 3px rgba(0, 0, 0, .4);
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.4;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.2rem 1rem;
+}
+
+.topbar h1 { font-size: 1.3rem; margin: 0; }
+
+.icon-button {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  width: 2.4rem;
+  height: 2.4rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.icon-moon { display: none; }
+:root[data-theme="dark"] .icon-sun { display: none; }
+:root[data-theme="dark"] .icon-moon { display: inline; }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1.5rem;
+}
+
+.filters label {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+.search-label { flex: 1; min-width: 180px; }
+
+select, input {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .5rem .6rem;
+  font-size: .95rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  box-shadow: var(--shadow);
+}
+
+.stat-card .label { color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+.stat-card .value { font-size: 1.4rem; font-weight: 700; margin-top: .2rem; }
+.stat-card .sub { color: var(--muted); font-size: .8rem; margin-top: .2rem; }
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  box-shadow: var(--shadow);
+}
+
+.chart-card h2 { font-size: 1rem; margin: 0 0 .8rem; }
+.chart { width: 100%; overflow-x: auto; }
+.chart svg { width: 100%; height: auto; display: block; }
+
+.correlation-card { margin-bottom: 1.5rem; }
+.correlation-card .chart { overflow-x: auto; }
+.heatmap { font-size: .75rem; }
+.heatmap th, .heatmap td { text-align: center; padding: .35rem .5rem; white-space: nowrap; }
+.heatmap th:first-child, .heatmap td:first-child { text-align: left; }
+
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; position: sticky; top: 0; background: var(--surface); }
+
+.table-wrap { max-height: 420px; overflow: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: .85rem;
+  padding: 1.5rem 1rem 2.5rem;
+}
+
+footer a { color: var(--accent); }
+
+@media (max-width: 560px) {
+  .topbar h1 { font-size: 1.05rem; }
+  .filters { flex-direction: column; align-items: stretch; }
+  .search-label { min-width: 0; }
+}

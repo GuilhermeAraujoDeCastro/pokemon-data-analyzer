@@ -3,4 +3,12 @@ __pycache__/
 .pytest_cache/
 data/pokemon_data.csv
 charts/*.png
+charts/*.svg
+charts/*.html
+charts/.source_hash
 *.db
+.venv/
+.pokecache/
+*.egg-info/
+site/node_modules/
+site/dist/
