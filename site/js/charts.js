@@ -16,13 +16,13 @@ export function barChart(container, data, { color = "var(--accent)", valueFormat
     return;
   }
 
-  const width = 560, height = 280, padding = { top: 16, right: 10, bottom: 64, left: 34 };
+  const width = 560, height = 300, padding = { top: 22, right: 10, bottom: 88, left: 34 };
   const innerW = width - padding.left - padding.right;
   const innerH = height - padding.top - padding.bottom;
   const maxValue = Math.max(...data.map((d) => d.value), 1);
   const barWidth = innerW / data.length;
 
-  const svg = el("svg", { viewBox: `0 0 ${width} ${height}`, role: "img", "aria-label": "Grafico de barras" });
+  const svg = el("svg", { viewBox: `0 0 ${width} ${height}`, role: "img", "aria-label": "Gráfico de barras" });
 
   data.forEach((d, i) => {
     const barHeight = (d.value / maxValue) * innerH;
@@ -32,13 +32,13 @@ export function barChart(container, data, { color = "var(--accent)", valueFormat
 
     const label = el("text", {
       x: x + barWidth * 0.4, y: height - padding.bottom + 14, "text-anchor": "end",
-      "font-size": "10", fill: "var(--muted)",
+      "font-size": "15", fill: "var(--muted)",
       transform: `rotate(-40 ${x + barWidth * 0.4} ${height - padding.bottom + 14})`,
     });
     label.textContent = d.label;
     svg.appendChild(label);
 
-    const valueLabel = el("text", { x: x + barWidth * 0.4, y: y - 4, "text-anchor": "middle", "font-size": "10", fill: "var(--text)" });
+    const valueLabel = el("text", { x: x + barWidth * 0.4, y: y - 4, "text-anchor": "middle", "font-size": "14", fill: "var(--text)" });
     valueLabel.textContent = valueFormat(d.value);
     svg.appendChild(valueLabel);
   });
@@ -63,7 +63,7 @@ export function scatterChart(container, points, { xLabel = "", yLabel = "", colo
   const scaleX = (x) => padding.left + ((x - minX) / (maxX - minX || 1)) * innerW;
   const scaleY = (y) => padding.top + innerH - ((y - minY) / (maxY - minY || 1)) * innerH;
 
-  const svg = el("svg", { viewBox: `0 0 ${width} ${height}`, role: "img", "aria-label": "Grafico de dispersao" });
+  const svg = el("svg", { viewBox: `0 0 ${width} ${height}`, role: "img", "aria-label": "Gráfico de dispersão" });
 
   svg.appendChild(el("line", { x1: padding.left, y1: padding.top, x2: padding.left, y2: height - padding.bottom, stroke: "var(--border)" }));
   svg.appendChild(el("line", { x1: padding.left, y1: height - padding.bottom, x2: width - padding.right, y2: height - padding.bottom, stroke: "var(--border)" }));
@@ -72,12 +72,12 @@ export function scatterChart(container, points, { xLabel = "", yLabel = "", colo
     svg.appendChild(el("circle", { cx: scaleX(p.x), cy: scaleY(p.y), r: 3.5, fill: color, "fill-opacity": 0.7 }));
   }
 
-  const xLabelEl = el("text", { x: width / 2, y: height - 6, "text-anchor": "middle", "font-size": "11", fill: "var(--muted)" });
+  const xLabelEl = el("text", { x: width / 2, y: height - 6, "text-anchor": "middle", "font-size": "16", fill: "var(--muted)" });
   xLabelEl.textContent = xLabel;
   svg.appendChild(xLabelEl);
 
   const yLabelEl = el("text", {
-    x: 12, y: height / 2, "text-anchor": "middle", "font-size": "11", fill: "var(--muted)",
+    x: 12, y: height / 2, "text-anchor": "middle", "font-size": "16", fill: "var(--muted)",
     transform: `rotate(-90 12 ${height / 2})`,
   });
   yLabelEl.textContent = yLabel;

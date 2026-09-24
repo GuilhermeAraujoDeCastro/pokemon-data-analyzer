@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Extrator e Analisador de Dados Pokemon</title>
-<meta name="description" content="Dashboard estatico dos dados extraidos e analisados da PokeAPI: tipos, stats, correlacoes e graficos.">
+<title>Extrator e Analisador de Dados Pokémon</title>
+<meta name="description" content="Painel com os dados extraídos e analisados da PokeAPI: tipos, stats, correlações e gráficos.">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <header class="topbar">
-  <h1>Extrator e Analisador de Dados Pokemon</h1>
+  <h1>Extrator e Analisador de Dados Pokémon</h1>
   <button id="theme-toggle" class="icon-button" type="button" aria-label="Alternar tema claro/escuro" title="Alternar tema">
     <span class="icon-sun" aria-hidden="true">&#9728;</span>
     <span class="icon-moon" aria-hidden="true">&#9789;</span>
@@ -19,7 +19,7 @@
 <main>
   <section class="filters" aria-label="Filtros">
     <label>
-      Geracao
+      Geração
       <select id="filter-generation">
         <option value="">Todas</option>
       </select>
@@ -31,20 +31,20 @@
       </select>
     </label>
     <label class="search-label">
-      Buscar Pokemon
+      Buscar Pokémon
       <input id="filter-search" type="search" placeholder="ex: pikachu">
     </label>
   </section>
 
-  <section class="stats-grid" id="stats-grid" aria-label="Resumo estatistico"></section>
+  <section class="stats-grid" id="stats-grid" aria-label="Resumo estatístico"></section>
 
   <section class="charts-grid">
     <div class="chart-card">
-      <h2>Tipos primarios mais comuns</h2>
+      <h2>Tipos primários mais comuns</h2>
       <div id="chart-types" class="chart"></div>
     </div>
     <div class="chart-card">
-      <h2>Velocidade media por tipo</h2>
+      <h2>Velocidade média por tipo</h2>
       <div id="chart-speed" class="chart"></div>
     </div>
     <div class="chart-card">
@@ -58,12 +58,12 @@
   </section>
 
   <section class="chart-card correlation-card">
-    <h2>Correlacao entre stats, altura e peso</h2>
+    <h2>Correlação entre stats, altura e peso</h2>
     <div id="chart-correlation" class="chart"></div>
   </section>
 
   <section class="table-section">
-    <h2>Dataset (<span id="table-count">0</span> Pokemon)</h2>
+    <h2>Dataset (<span id="table-count">0</span> Pokémon)</h2>
     <div class="table-wrap">
       <table id="pokemon-table">
         <thead>
@@ -79,8 +79,8 @@
 </main>
 
 <footer>
-  <p>Dados via <a href="https://pokeapi.co" target="_blank" rel="noopener">PokeAPI</a>. Codigo no
-    <a href="https://github.com/GuilhermeAraujoDeCastro/Extrator-e-Analisador-de-Dados-Pok-mon" target="_blank" rel="noopener">GitHub</a>.</p>
+  <p>Dados via <a href="https://pokeapi.co" target="_blank" rel="noopener">PokeAPI</a>. Feito por
+    <a href="https://github.com/GuilhermeAraujoDeCastro" target="_blank" rel="noopener">Guilherme Araujo de Castro</a>.</p>
 </footer>
 
 <script type="module" src="js/main.js"></script>

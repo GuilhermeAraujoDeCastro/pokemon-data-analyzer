@@ -59,13 +59,13 @@ function renderStats(rows) {
   grid.innerHTML = "";
 
   const cards = [];
-  cards.push({ label: "Total de Pokemon", value: String(rows.length) });
+  cards.push({ label: "Total de Pokémon", value: String(rows.length) });
 
   const rarest = rarestTypeCombination(rows);
-  if (rarest) cards.push({ label: "Combinacao mais rara", value: rarest.combo, sub: `${rarest.count} Pokemon` });
+  if (rarest) cards.push({ label: "Combinação mais rara", value: rarest.combo, sub: `${rarest.count} Pokémon` });
 
   const fastest = fastestType(rows);
-  if (fastest) cards.push({ label: "Tipo mais rapido", value: fastest.type, sub: `${fastest.avgSpeed.toFixed(1)} vel. media` });
+  if (fastest) cards.push({ label: "Tipo mais rápido", value: fastest.type, sub: `${fastest.avgSpeed.toFixed(1)} vel. média` });
 
   const outliers = findOutliers(rows, "hp");
   cards.push({ label: "Outliers de HP", value: String(outliers.length), sub: outliers.slice(0, 3).map((o) => o.name).join(", ") || "nenhum" });
