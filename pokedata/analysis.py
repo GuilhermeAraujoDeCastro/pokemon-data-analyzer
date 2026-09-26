@@ -69,15 +69,6 @@ def most_common_type_by_generation(df):
 STAT_COLUMNS = ["hp", "attack", "defense", "special_attack", "special_defense", "speed"]
 
 
-def stat_total_distribution_by_generation(df):
-    """Requer a coluna "generation". Soma as 6 stats base por Pokemon e
-    devolve o describe() (media, desvio, min/max etc.) dessa soma agrupado
-    por geracao -- da pra ver se alguma geracao tem Pokemon "mais fortes" em
-    media."""
-    totals = df[STAT_COLUMNS].sum(axis=1)
-    return totals.groupby(df["generation"]).describe()
-
-
 def correlation_matrix(df):
     """Matriz de correlacao de Pearson entre todas as stats + altura/peso,
     pra visualizar como heatmap (veja charts.plot_correlation_heatmap). Uma

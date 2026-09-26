@@ -37,7 +37,7 @@ export function fastestType(rows) {
   return averages.length ? { type: averages[0][0], avgSpeed: averages[0][1] } : null;
 }
 
-export function pearsonCorrelation(xs, ys) {
+function pearsonCorrelation(xs, ys) {
   const n = xs.length;
   if (n === 0) return NaN;
   const meanX = xs.reduce((a, b) => a + b, 0) / n;
@@ -54,7 +54,7 @@ export function pearsonCorrelation(xs, ys) {
   return cov / Math.sqrt(varX * varY);
 }
 
-export function correlationBetween(rows, keyA, keyB) {
+function correlationBetween(rows, keyA, keyB) {
   return pearsonCorrelation(rows.map((r) => r[keyA]), rows.map((r) => r[keyB]));
 }
 
