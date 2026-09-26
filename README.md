@@ -1,5 +1,7 @@
 # Extrator e Analisador de Dados Pokémon
 
+![Tela inicial do Extrator e Analisador de Dados Pokémon](docs/capa.png)
+
 Script em Python que junta dados de Pokémon (da PokéAPI ao vivo ou de um CSV salvo), organiza tudo numa tabela e responde perguntas estatísticas: qual combinação de tipos é mais rara, qual tipo é mais rápido na média, se peso e defesa andam juntos, quem se destaca em cada atributo. Gera gráficos, um relatório em HTML, JSON pro site e, se quiser, um banco SQLite. É o terceiro projeto da minha trilogia Pokémon, depois do Simulador de Batalha em Python e do Team Builder em C#.
 
 Site com os gráficos: https://extrator-dados-pokemon.vercel.app
@@ -59,9 +61,9 @@ Correlacao entre peso e defesa: 0.465
 
 Nesses 20, só o Dragonite tem a combinação Dragão/Voador, os psíquicos (Mewtwo e Alakazam) são os mais rápidos na média, e peso e defesa têm uma correlação positiva moderada. O Onix é a exceção: leve pro tamanho e com a maior defesa da lista.
 
-Além disso, o relatório traz a correlação entre altura e HP, o tipo mais comum por geração, a distribuição do total de atributos por geração, a matriz de correlação entre os atributos e os Pokémon fora da curva em cada atributo.
+Além disso, o relatório traz a correlação entre altura e HP, o tipo mais comum por geração, a matriz de correlação entre os atributos (em gráfico) e os Pokémon com HP fora da curva.
 
-O CSV de exemplo foi digitado à mão, com Pokémon conhecidos (iniciais, lendários e clássicos como Snorlax, Ditto e Magikarp). Serve pro script funcionar sem internet e pros testes. Pra tirar conclusão de verdade, use `--source api`: 20 Pokémon é pouco pra estatística.
+O CSV de exemplo foi digitado à mão, com Pokémon conhecidos (iniciais, lendários e clássicos como Snorlax, Ditto e Magikarp). Serve pro script funcionar sem internet. Pra tirar conclusão de verdade, use `--source api`: 20 Pokémon é pouco pra estatística.
 
 ## Dashboard em Streamlit
 
@@ -84,23 +86,7 @@ npm run build
 
 O build junta e ofusca o JavaScript em `site/dist/`, que é a pasta publicada na Vercel (veja o `vercel.json` na raiz).
 
-## Testes
-
-```bash
-python -m pytest -v
-```
-
-São 67 testes, nenhum precisa de internet:
-
-- limpeza dos dados da API, inclusive a conversão de decímetros e hectogramas pra metros e quilos;
-- montagem, leitura e gravação do dataset em CSV;
-- as perguntas da análise, com exemplos pequenos que dá pra conferir de cabeça;
-- gráficos, cache e divisão por geração;
-- relatório em HTML e exportações pra JSON e SQLite;
-- busca na PokéAPI com a rede simulada;
-- um teste de regressão com os 151 de Kanto.
-
-Os exemplos de resposta da PokéAPI ficam em `tests/fixtures`, no formato real da API. O GitHub Actions roda os testes no Python 3.10, 3.11 e 3.12 a cada push.
+O GitHub Actions roda o extrator com o CSV de exemplo e faz o build do site a cada push.
 
 ## Arquitetura
 
@@ -120,10 +106,9 @@ pokedata/
   sql_export.py         exportação pra SQLite
 site/                   painel estático publicado na Vercel
 data/sample_pokemon.csv dataset de exemplo
-tests/
 ```
 
-Cada etapa (buscar, limpar, guardar, analisar, desenhar) é um módulo separado, ligado à anterior só por dados simples (dicts e DataFrame). Por isso dá pra testar a análise inteira sem rede nem arquivo: monta um DataFrame pequeno na mão e confere o resultado.
+Cada etapa (buscar, limpar, guardar, analisar, desenhar) é um módulo separado, ligado à anterior só por dados simples (dicts e DataFrame). Por isso a análise roda sem rede nem arquivo: basta entregar um DataFrame.
 
 ## O que eu treinei com esse projeto
 

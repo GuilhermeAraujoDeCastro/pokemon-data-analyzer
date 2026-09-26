@@ -1,6 +1,5 @@
 __pycache__/
 *.pyc
-.pytest_cache/
 data/pokemon_data.csv
 charts/*.png
 charts/*.svg

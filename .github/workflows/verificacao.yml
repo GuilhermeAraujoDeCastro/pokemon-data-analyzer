@@ -1,0 +1,30 @@
+# A cada push: roda o extrator com o CSV de exemplo (sem rede) e faz o build do site.
+name: Verificação
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  extrator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python run_extractor.py --source csv --input data/sample_pokemon.csv --charts-dir saida/graficos --sqlite-db saida/pokemon.db --html-report saida/relatorio.html --export-json saida/json
+
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+        working-directory: site
+      - run: npm run build
+        working-directory: site
+      - run: for f in site/dist/js/*.js; do node --check "$f"; done
