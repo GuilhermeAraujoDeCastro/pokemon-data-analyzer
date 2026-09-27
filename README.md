@@ -116,4 +116,4 @@ pandas pra limpar, organizar e agregar dados (groupby, correlação, rankings), 
 
 ## Licença
 
-Veja o arquivo LICENSE.
+Todos os direitos reservados (veja o arquivo LICENSE).
