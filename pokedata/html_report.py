@@ -3,6 +3,7 @@ embutidos direto no HTML) a partir do dataset. Pra virar PDF: abra o HTML
 no navegador e use Imprimir -> Salvar como PDF -- nao compensa puxar uma
 biblioteca so' pra isso.
 """
+import html
 from pathlib import Path
 
 from pokedata.analysis import (
@@ -34,7 +35,7 @@ th, td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid #ddd; 
 
 def _table_rows(df, columns):
     return "".join(
-        "<tr>" + "".join(f"<td>{row[c]}</td>" for c in columns) + "</tr>"
+        "<tr>" + "".join(f"<td>{html.escape(str(row[c]))}</td>" for c in columns) + "</tr>"
         for _, row in df.iterrows()
     )
 

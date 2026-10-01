@@ -42,14 +42,18 @@ def plot_type_distribution(df, output_path, top_n=10, compare_df=None, labels=("
     """Barras com os `top_n` tipos primarios mais comuns. Se `compare_df` for
     passado, desenha barras agrupadas lado a lado pra comparar duas buscas
     (ex: Kanto x Johto)."""
-    counts = df["type_1"].value_counts().head(top_n)
+    todos = df["type_1"].value_counts()
+    counts = todos.head(top_n)
     fig, ax = plt.subplots(figsize=(9, 5))
 
     if compare_df is None:
         counts.plot(kind="bar", ax=ax, color="#4a90d9")
     else:
         compare_counts = compare_df["type_1"].value_counts()
-        combined = counts.to_frame(labels[0]).join(compare_counts.rename(labels[1]), how="outer").fillna(0)
+        # Top N somando as duas buscas: o join completo trazia ate 18 tipos num grafico de "Top 10".
+        tipos = todos.add(compare_counts, fill_value=0).sort_values(ascending=False).head(top_n).index
+        combined = todos.reindex(tipos, fill_value=0).to_frame(labels[0]).join(
+            compare_counts.reindex(tipos, fill_value=0).rename(labels[1]))
         combined.plot(kind="bar", ax=ax, color=["#4a90d9", "#e8a33d"])
         ax.legend()
 

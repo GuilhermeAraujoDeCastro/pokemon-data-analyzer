@@ -135,7 +135,10 @@ def generate_charts(df, output_dir, compare_df=None, compare_label="Comparacao")
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    if compare_df is None and charts_up_to_date(df, output_dir):
+    # O marcador so' diz que o dataset nao mudou; se algum grafico foi apagado, gera de novo.
+    graficos = ("distribuicao_tipos", "velocidade_media_por_tipo", "peso_vs_defesa", "top_ataque", "correlacao")
+    faltando = any(not (output_dir / f"{nome}.{ext}").exists() for nome in graficos for ext in ("png", "svg"))
+    if compare_df is None and not faltando and charts_up_to_date(df, output_dir):
         print(f"\nGraficos em {output_dir}/ ja estao atualizados (dataset nao mudou), pulando geracao.")
         return
 

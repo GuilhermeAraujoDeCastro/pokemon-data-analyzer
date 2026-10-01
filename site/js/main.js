@@ -73,7 +73,14 @@ function renderStats(rows) {
   for (const card of cards) {
     const div = document.createElement("div");
     div.className = "stat-card";
-    div.innerHTML = `<div class="label">${card.label}</div><div class="value">${card.value}</div>${card.sub ? `<div class="sub">${card.sub}</div>` : ""}`;
+    // textContent: nome e tipo vêm do JSON gerado, que não deve virar HTML.
+    for (const [classe, texto] of [["label", card.label], ["value", card.value], ["sub", card.sub]]) {
+      if (!texto) continue;
+      const parte = document.createElement("div");
+      parte.className = classe;
+      parte.textContent = texto;
+      div.appendChild(parte);
+    }
     grid.appendChild(div);
   }
 }
@@ -112,8 +119,11 @@ function renderTable(rows) {
   const fragment = document.createDocumentFragment();
   for (const row of rows) {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${row.id}</td><td>${row.name}</td><td>${row.type_1}</td><td>${row.type_2 || ""}</td>
-      <td>${row.hp}</td><td>${row.attack}</td><td>${row.defense}</td><td>${row.speed}</td>`;
+    for (const valor of [row.id, row.name, row.type_1, row.type_2 || "", row.hp, row.attack, row.defense, row.speed]) {
+      const td = document.createElement("td");
+      td.textContent = String(valor);
+      tr.appendChild(td);
+    }
     fragment.appendChild(tr);
   }
   tbody.appendChild(fragment);
@@ -151,7 +161,9 @@ async function main() {
   try {
     state.rows = await loadData();
   } catch (err) {
-    document.querySelector("main").innerHTML = `<p>Nao consegui carregar os dados: ${err.message}</p>`;
+    const aviso = document.createElement("p");
+    aviso.textContent = `Nao consegui carregar os dados: ${err.message}`;
+    document.querySelector("main").replaceChildren(aviso);
     return;
   }
   populateFilters(state.rows);
