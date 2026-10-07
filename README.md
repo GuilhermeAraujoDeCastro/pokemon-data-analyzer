@@ -1,10 +1,16 @@
-# Extrator e Analisador de Dados Pokémon
+# Analisador de Dados Pokémon
 
-![Tela inicial do Extrator e Analisador de Dados Pokémon](docs/capa.png)
+![Capa do Analisador de Dados Pokémon](docs/capa.png)
 
-Script em Python que junta dados de Pokémon (da PokéAPI ao vivo ou de um CSV salvo), organiza tudo numa tabela e responde perguntas estatísticas: qual combinação de tipos é mais rara, qual tipo é mais rápido na média, se peso e defesa andam juntos, quem se destaca em cada atributo. Gera gráficos, um relatório em HTML, JSON pro site e, se quiser, um banco SQLite. É o terceiro projeto da minha trilogia Pokémon, depois do Simulador de Batalha em Python e do Team Builder em C#.
+[![Verificação](https://github.com/GuilhermeAraujoDeCastro/pokemon-data-analyzer/actions/workflows/verificacao.yml/badge.svg)](https://github.com/GuilhermeAraujoDeCastro/pokemon-data-analyzer/actions/workflows/verificacao.yml)
+
+Script em Python que junta dados de Pokémon (da PokéAPI ao vivo ou de um CSV salvo), organiza tudo numa tabela e responde perguntas estatísticas: qual combinação de tipos é mais rara, qual tipo é mais rápido na média, se peso e defesa andam juntos, quem se destaca em cada atributo. Gera gráficos, um relatório em HTML, JSON pro site e, se quiser, um banco SQLite. É o terceiro projeto da minha trilogia Pokémon, depois do [Simulador de Batalha](https://github.com/GuilhermeAraujoDeCastro/pokemon-battle-simulator) em Python e do [Team Builder](https://github.com/GuilhermeAraujoDeCastro/pokemon-team-builder) em C#.
 
 Site com os gráficos: https://extrator-dados-pokemon.vercel.app
+
+| Painel | Correlações e tabela | No celular |
+|---|---|---|
+| ![Painel com os totais e os gráficos por tipo](docs/screenshots/01-home.png) | ![Matriz de correlação e a tabela dos 151 Pokémon](docs/screenshots/02-detalhe.png) | ![Painel numa tela de celular](docs/screenshots/03-mobile.png) |
 
 ## Como configurar
 
@@ -86,7 +92,7 @@ npm run build
 
 O build junta e ofusca o JavaScript em `site/dist/`, que é a pasta publicada na Vercel (veja o `vercel.json` na raiz).
 
-O GitHub Actions roda o extrator com o CSV de exemplo e faz o build do site a cada push.
+O GitHub Actions roda o analisador com o CSV de exemplo e faz o build do site a cada push.
 
 ## Arquitetura
 
@@ -114,6 +120,10 @@ Cada etapa (buscar, limpar, guardar, analisar, desenhar) é um módulo separado,
 
 pandas pra limpar, organizar e agregar dados (groupby, correlação, rankings), matplotlib pra transformar isso em gráfico, consumo de uma API REST pública com paginação e cache, e exportação pra SQL como ponte pra ferramentas de dashboard. É o projeto mais parecido com o trabalho de análise de dados do certificado de Power BI, só que em Python.
 
-## Licença
+## Créditos e avisos
 
-Todos os direitos reservados (veja o arquivo LICENSE).
+Os dados vêm da [PokéAPI](https://pokeapi.co/) e os gráficos do site usam o [Chart.js](https://www.chartjs.org/). Pokémon é marca da Nintendo, da Game Freak e da The Pokémon Company. Este é um projeto de fã e de estudo, sem fins lucrativos e sem ligação com essas empresas.
+
+## Licença e contato
+
+Código sob a licença MIT (veja [LICENSE](LICENSE)). Feito por Guilherme Araujo de Castro: [portfólio](https://guilhermearaujodecastro.vercel.app) · [LinkedIn](https://www.linkedin.com/in/guilherme-araujo-de-castro) · guilhermeacastro.2006@gmail.com
