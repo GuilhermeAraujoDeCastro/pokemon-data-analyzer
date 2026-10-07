@@ -29,7 +29,13 @@ from pokedata.charts import (
     write_charts_marker,
 )
 from pokedata.clean import clean_all
-from pokedata.dataset import build_dataframe, filter_by_generation, filter_by_type, load_csv, save_csv
+from pokedata.dataset import (
+    build_dataframe,
+    filter_by_generation,
+    filter_by_type,
+    load_csv,
+    save_csv,
+)
 from pokedata.generations import add_generation_column
 from pokedata.html_report import export_html_report
 from pokedata.json_export import export_json
