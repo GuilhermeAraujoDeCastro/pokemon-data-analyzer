@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extrator e Analisador de Dados Pokemon.
+"""Analisador de Dados Pokemon.
 
 Busca dados de Pokemon (na PokeAPI ao vivo, ou de um CSV ja salvo), organiza
 num dataset, responde um conjunto de perguntas estatisticas, gera graficos e
@@ -177,7 +177,7 @@ def run_interactive(args):
 
 
 def build_arg_parser():
-    parser = argparse.ArgumentParser(description="Extrator e analisador de dados Pokemon")
+    parser = argparse.ArgumentParser(description="Analisador de dados Pokemon")
     parser.add_argument(
         "--source", choices=["api", "csv"], default="csv",
         help="De onde vem o dataset: 'api' busca ao vivo na PokeAPI, 'csv' le um arquivo ja salvo (padrao)",

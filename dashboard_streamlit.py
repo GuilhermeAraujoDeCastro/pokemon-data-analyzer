@@ -23,8 +23,8 @@ from pokedata.generations import add_generation_column
 
 STATS = ["hp", "attack", "defense", "special_attack", "special_defense", "speed"]
 
-st.set_page_config(page_title="Extrator Pokemon", layout="wide")
-st.title("Extrator e Analisador de Dados Pokemon")
+st.set_page_config(page_title="Analisador de Dados Pokémon", layout="wide")
+st.title("Analisador de Dados Pokémon")
 
 source_path = st.sidebar.text_input("CSV de entrada", "data/sample_pokemon.csv")
 try:

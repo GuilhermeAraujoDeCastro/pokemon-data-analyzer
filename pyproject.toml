@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "extrator-pokemon"
+name = "pokemon-data-analyzer"
 version = "1.0.0"
-description = "Extrator e analisador de dados Pokemon: PokeAPI ou CSV, relatorio estatistico, graficos e exportacao pra SQLite/JSON/HTML."
+description = "Analisador de dados Pokemon: PokeAPI ou CSV, relatorio estatistico, graficos e exportacao pra SQLite/JSON/HTML."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.scripts]
-extrator-pokemon = "run_extractor:main"
+pokemon-data-analyzer = "run_extractor:main"
 
 [tool.setuptools]
 py-modules = ["run_extractor"]

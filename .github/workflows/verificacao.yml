@@ -1,4 +1,4 @@
-# A cada push: roda o extrator com o CSV de exemplo (sem rede) e faz o build do site.
+# A cada push: roda o analisador com o CSV de exemplo (sem rede) e faz o build do site.
 name: Verificação
 
 on:
@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  extrator:
+  analisador:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

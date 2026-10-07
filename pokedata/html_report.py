@@ -72,7 +72,7 @@ def build_html_report(df, charts_dir=None):
 <style>{STYLE}</style>
 </head>
 <body>
-<h1>Extrator e Analisador de Dados Pokemon</h1>
+<h1>Analisador de Dados Pokémon</h1>
 <div class="stat"><strong>Total de Pokemon:</strong> {len(df)}</div>
 <div class="stat"><strong>Combinacao mais rara:</strong> {combo} ({combo_count})</div>
 <div class="stat"><strong>Tipo mais rapido:</strong> {type_name} ({avg_speed:.1f})</div>
