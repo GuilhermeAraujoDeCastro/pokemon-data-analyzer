@@ -82,7 +82,7 @@ Mostra a mesma análise num painel local, com filtros.
 
 ## Site
 
-A pasta `site/` tem um painel estático com os gráficos (Chart.js), filtros por geração, tipo e nome, a tabela completa e tema claro e escuro. Ele lê o `site/data/pokemon.json` e o `site/data/report.json` gerados pelo `--export-json`.
+A pasta `site/` tem um painel estático com os gráficos (SVG desenhado no próprio código, sem biblioteca), filtros por geração, tipo e nome, a tabela completa e tema claro e escuro. Ele lê o `site/data/pokemon.json` e o `site/data/report.json` gerados pelo `--export-json`.
 
 ```bash
 cd site
@@ -122,7 +122,7 @@ pandas pra limpar, organizar e agregar dados (groupby, correlação, rankings), 
 
 ## Créditos e avisos
 
-Os dados vêm da [PokéAPI](https://pokeapi.co/) e os gráficos do site usam o [Chart.js](https://www.chartjs.org/). Pokémon é marca da Nintendo, da Game Freak e da The Pokémon Company. Este é um projeto de fã e de estudo, sem fins lucrativos e sem ligação com essas empresas.
+Os dados vêm da [PokéAPI](https://pokeapi.co/). Pokémon é marca da Nintendo, da Game Freak e da The Pokémon Company. Este é um projeto de fã e de estudo, sem fins lucrativos e sem ligação com essas empresas.
 
 ## Licença e contato
 
