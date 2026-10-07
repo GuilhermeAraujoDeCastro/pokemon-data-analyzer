@@ -11,3 +11,10 @@ charts/.source_hash
 *.egg-info/
 site/node_modules/
 site/dist/
+
+# Segredos, deploy e logs locais
+.env
+.env.*
+.vercel/
+.ruff_cache/
+*.log
