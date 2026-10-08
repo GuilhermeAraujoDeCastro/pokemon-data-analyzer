@@ -16,7 +16,7 @@ import JavaScriptObfuscator from "javascript-obfuscator";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(__dirname, "dist");
-const COPY_ENTRIES = ["index.html", "data"];
+const COPY_ENTRIES = ["index.html", "data", "og.png"];
 
 async function copyRecursive(src, dest) {
   const stat = await fs.stat(src).catch(() => null);
